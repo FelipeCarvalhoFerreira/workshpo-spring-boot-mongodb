@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,20 +25,25 @@ public class UsuarioServico {
 		return usuarioRepositorio.findAll();
  	}
 	
-	@GetMapping(value = "/{id}")
+	
 	public Usuario listarUsuarioId(String id) {
 		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
 		return usuario.orElseThrow(()-> new ExcecaoObjetoNaoEncontrado("Usuario não Encontrado"));
 	} 
 	
-	@PostMapping
-	public Usuario inserirUsuario(Usuario usuario ) {
+	
+	public Usuario inserirUsuario(Usuario usuario) {
 		return usuarioRepositorio.insert(usuario);
 	}
 	
 	public Usuario deUsuarioDTOparaUsuario(UsuarioDTO usuarioDTO) {
 		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNomeUsuario(), usuarioDTO.getEmailUsuario());
-		
+	}
+	
+
+	public void deletarUsuario(String id) {
+		listarUsuarioId(id);
+		usuarioRepositorio.deleteById(id);
 	}
 
 }
