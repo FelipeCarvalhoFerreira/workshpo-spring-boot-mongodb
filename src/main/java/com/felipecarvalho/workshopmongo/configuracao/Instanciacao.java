@@ -39,10 +39,10 @@ public class Instanciacao implements CommandLineRunner {
 		
 		Publicar publicacaoNumeroUm = new Publicar(null, formatarData.parse("21/03/2023"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AutorDTO(maria));
 		Publicar publicacaoNumeroDois = new Publicar(null, formatarData.parse("21/03/2023"), "Bom dia", "Acordei feliz hoje!", new AutorDTO (maria));
-		
 		publicarRepositorio.saveAll(Arrays.asList(publicacaoNumeroUm, publicacaoNumeroDois));
 		
-		
+		maria.getListaPublicacao().addAll(Arrays.asList(publicacaoNumeroUm, publicacaoNumeroDois));
+		usuarioRepositorio.save(maria);
 	}
 }
  

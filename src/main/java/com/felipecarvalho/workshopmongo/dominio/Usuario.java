@@ -3,14 +3,17 @@ package com.felipecarvalho.workshopmongo.dominio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@DBRef(lazy = true)
 	List<Publicar> listaPublicacao = new ArrayList<>();
 	
 	@Id
@@ -50,5 +53,29 @@ public class Usuario implements Serializable {
 	public void setEmailUsuario(String emailUsuario) {
 		this.emailUsuario = emailUsuario;
 	}
-	
+
+	public List<Publicar> getListaPublicacao() {
+		return listaPublicacao;
+	}
+
+	public void setListaPublicacao(List<Publicar> listaPublicacao) {
+		this.listaPublicacao = listaPublicacao;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(id, other.id);
+	}
 }
