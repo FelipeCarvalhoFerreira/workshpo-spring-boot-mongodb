@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 
 import com.felipecarvalho.workshopmongo.dominio.Publicar;
 import com.felipecarvalho.workshopmongo.dominio.Usuario;
+import com.felipecarvalho.workshopmongo.dto.AutorDTO;
 import com.felipecarvalho.workshopmongo.repositorio.PublicarRepositorio;
 import com.felipecarvalho.workshopmongo.repositorio.UsuarioRepositorio;
 
@@ -33,11 +34,12 @@ public class Instanciacao implements CommandLineRunner {
 		Usuario maria = new Usuario(null, "Maria Brown", "maria@gmail.com");
 		Usuario alex = new Usuario(null, "Alex Green", "alex@gmail.com");
 		Usuario bob = new Usuario(null, "Bob Grey", "bob@gmail.com");
-		
-		Publicar publicacaoNumeroUm = new Publicar(null, formatarData.parse("21/03/2023"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-		Publicar publicacaoNumeroDois = new Publicar(null, formatarData.parse("21/03/2023"), "Bom dia", "Acordei feliz hoje!", maria);
-		
 		usuarioRepositorio.saveAll(Arrays.asList(maria, alex, bob));
+		
+		
+		Publicar publicacaoNumeroUm = new Publicar(null, formatarData.parse("21/03/2023"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AutorDTO(maria));
+		Publicar publicacaoNumeroDois = new Publicar(null, formatarData.parse("21/03/2023"), "Bom dia", "Acordei feliz hoje!", new AutorDTO (maria));
+		
 		publicarRepositorio.saveAll(Arrays.asList(publicacaoNumeroUm, publicacaoNumeroDois));
 		
 		
