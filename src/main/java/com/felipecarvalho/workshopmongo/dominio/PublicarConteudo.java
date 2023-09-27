@@ -2,6 +2,7 @@ package com.felipecarvalho.workshopmongo.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
@@ -10,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.felipecarvalho.workshopmongo.dto.AutorDTO;
 
 @Document
-public class Publicar implements Serializable{
+public class PublicarConteudo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,10 +21,10 @@ public class Publicar implements Serializable{
 	private String textoPublicacao;
 	private AutorDTO autorPublicacao;
 	
-	public Publicar() {
+	public PublicarConteudo() {
 	}
 	
-	public Publicar(String id, Date dataPublicacao, String tituloPublicacao, String textoPublicacao, AutorDTO autorPublicacao) {
+	public PublicarConteudo(String id, Date dataPublicacao, String tituloPublicacao, String textoPublicacao, AutorDTO autorPublicacao) {
 		super();
 		this.id = id;
 		this.dataPublicacao = dataPublicacao;
@@ -85,7 +86,11 @@ public class Publicar implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Publicar other = (Publicar) obj;
+		PublicarConteudo other = (PublicarConteudo) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
+
+	
 }

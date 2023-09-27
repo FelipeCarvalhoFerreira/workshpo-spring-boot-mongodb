@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.felipecarvalho.workshopmongo.dominio.PublicarConteudo;
 import com.felipecarvalho.workshopmongo.dominio.Usuario;
 import com.felipecarvalho.workshopmongo.dto.UsuarioDTO;
 import com.felipecarvalho.workshopmongo.servico.UsuarioServico;
@@ -62,6 +62,12 @@ public class UsuarioRecurso {
 		usuario.getId();
 		usuario = usuarioServico.alterarUsuario(usuario);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping(value = "/{id/publicarConteudo}")
+	public ResponseEntity<List<PublicarConteudo>>listarPublicacaoUsuario(@PathVariable String id) {
+		Usuario listarUsuarioId = usuarioServico.listarUsuarioId(id);
+		return ResponseEntity.ok().body(listarUsuarioId.getListaPublicacao());
 	}
 
 }

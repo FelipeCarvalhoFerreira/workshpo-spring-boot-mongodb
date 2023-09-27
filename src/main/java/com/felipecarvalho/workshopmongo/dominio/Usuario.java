@@ -14,7 +14,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@DBRef(lazy = true)
-	List<Publicar> listaPublicacao = new ArrayList<>();
+	List<PublicarConteudo> listaPublicacao = new ArrayList<>();
 	
 	@Id
 	private String id;
@@ -54,11 +54,11 @@ public class Usuario implements Serializable {
 		this.emailUsuario = emailUsuario;
 	}
 
-	public List<Publicar> getListaPublicacao() {
+	public List<PublicarConteudo> getListaPublicacao() {
 		return listaPublicacao;
 	}
 
-	public void setListaPublicacao(List<Publicar> listaPublicacao) {
+	public void setListaPublicacao(List<PublicarConteudo> listaPublicacao) {
 		this.listaPublicacao = listaPublicacao;
 	}
 
