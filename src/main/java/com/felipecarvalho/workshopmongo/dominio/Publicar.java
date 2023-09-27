@@ -1,41 +1,48 @@
 package com.felipecarvalho.workshopmongo.dominio;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Publicar implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	private Instant dataPublicacao;
+	@Id
+	private String id;
+	private Date dataPublicacao;
 	private String tituloPublicacao;
 	private String textoPublicacao;
+	private Usuario autorPublicacao;
 	
 	public Publicar() {
 	}
 	
-	public Publicar(Long id, Instant dataPublicacao, String tituloPublicacao, String textoPublicacao) {
+	public Publicar(String id, Date dataPublicacao, String tituloPublicacao, String textoPublicacao, Usuario autorPublicacao) {
 		super();
 		this.id = id;
 		this.dataPublicacao = dataPublicacao;
 		this.tituloPublicacao = tituloPublicacao;
 		this.textoPublicacao = textoPublicacao;
+		this.autorPublicacao = autorPublicacao;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Instant getDataPublicacao() {
+	public Date getDataPublicacao() {
 		return dataPublicacao;
 	}
 
-	public void setDataPublicacao(Instant dataPublicacao) {
+	public void setDataPublicacao(Date dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
 
@@ -59,6 +66,14 @@ public class Publicar implements Serializable{
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
+	public Usuario getAutorPublicacao() {
+		return autorPublicacao;
+	}
+
+	public void setAutorPublicacao(Usuario autorPublicacao) {
+		this.autorPublicacao = autorPublicacao;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -71,7 +86,4 @@ public class Publicar implements Serializable{
 		Publicar other = (Publicar) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-
 }

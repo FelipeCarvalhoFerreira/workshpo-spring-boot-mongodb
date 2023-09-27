@@ -1,15 +1,17 @@
 package com.felipecarvalho.workshopmongo.dominio;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "usuario")
+@Document
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	List<Publicar> listaPublicacao = new ArrayList<>();
 	
 	@Id
 	private String id;
