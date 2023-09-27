@@ -20,17 +20,15 @@ public class UsuarioServico {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 	
-	@GetMapping(value = "/usuarios")
+	
 	public List<Usuario> listarTodosUsuarios(){
 		return usuarioRepositorio.findAll();
  	}
-	
 	
 	public Usuario listarUsuarioId(String id) {
 		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
 		return usuario.orElseThrow(()-> new ExcecaoObjetoNaoEncontrado("Usuario não Encontrado"));
 	} 
-	
 	
 	public Usuario inserirUsuario(Usuario usuario) {
 		return usuarioRepositorio.insert(usuario);
@@ -40,10 +38,20 @@ public class UsuarioServico {
 		return new Usuario(usuarioDTO.getId(), usuarioDTO.getNomeUsuario(), usuarioDTO.getEmailUsuario());
 	}
 	
-
 	public void deletarUsuario(String id) {
 		listarUsuarioId(id);
 		usuarioRepositorio.deleteById(id);
+	}
+	
+	public Usuario alterarUsuario(Usuario usuario){
+		Usuario novoUsuario = listarUsuarioId(usuario.getId());
+		alterarDado(novoUsuario, usuario);
+		return usuarioRepositorio.save(novoUsuario);
+	}
+
+	private void alterarDado(Usuario novoUsuario, Usuario usuario) {
+		novoUsuario.setNomeUsuario(usuario.getNomeUsuario());
+		novoUsuario.setEmailUsuario(usuario.getEmailUsuario());
 	}
 
 }
