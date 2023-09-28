@@ -20,10 +20,17 @@ public class PublicarConteudoServico {
 		Optional<PublicarConteudo> listaPublicacaoUsuario = publicarConteudoRepositorio.findById(id);
 		return listaPublicacaoUsuario.orElseThrow(()-> new ExcecaoObjetoNaoEncontrado("Usuario não Encontrado"));
 	}
-	
+	/*
 	public List<PublicarConteudo> findByTituloPublicacaoContainingIgnoringCase(String texto){ 
 		return publicarConteudoRepositorio.findByTituloPublicacaoContainingIgnoringCase(texto);
+		// metodo do spring data
+		//findByTituloPublicacaoContainingIgnoringCase - encontrar por Titulo Publicacao contendo ignorando letras maisculas e minusculas
 	} 
+	*/
+	
+	public List<PublicarConteudo> findByTituloPublicacaoContainingIgnoringCase(String texto){ 
+		return publicarConteudoRepositorio.encontrarPublicacaoPorTitulo(texto);
+	}
 }
 
-//findByTituloPublicacaoContainingIgnoringCase - encontrar por Titulo Publicacao contendo ignorando letras maisculas e minusculas
+ 
