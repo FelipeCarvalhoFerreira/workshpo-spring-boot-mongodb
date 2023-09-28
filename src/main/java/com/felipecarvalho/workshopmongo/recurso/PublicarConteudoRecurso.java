@@ -22,5 +22,4 @@ public class PublicarConteudoRecurso {
 		PublicarConteudo listaPublicacaoUsuario = publicarConteudoServico.listarPublicacaoUsuarioId(id);
 		return ResponseEntity.ok().body(listaPublicacaoUsuario);
 	}
-
-	}
+}

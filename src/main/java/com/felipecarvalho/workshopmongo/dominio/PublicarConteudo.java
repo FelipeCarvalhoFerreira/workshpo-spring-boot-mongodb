@@ -1,6 +1,7 @@
 package com.felipecarvalho.workshopmongo.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.felipecarvalho.workshopmongo.dto.AutorDTO;
+import com.felipecarvalho.workshopmongo.dto.ComentarioDTO;
 
 @Document
 public class PublicarConteudo implements Serializable{
@@ -21,6 +23,8 @@ public class PublicarConteudo implements Serializable{
 	private String textoPublicacao;
 	private AutorDTO autorPublicacao;
 	
+	List<ComentarioDTO> comentarios = new ArrayList<>();
+	
 	public PublicarConteudo() {
 	}
 	
@@ -31,6 +35,7 @@ public class PublicarConteudo implements Serializable{
 		this.tituloPublicacao = tituloPublicacao;
 		this.textoPublicacao = textoPublicacao;
 		this.autorPublicacao = autorPublicacao;
+		
 	}
 
 	public String getId() {
@@ -65,17 +70,25 @@ public class PublicarConteudo implements Serializable{
 		this.textoPublicacao = textoPublicacao;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-	
 	public AutorDTO getAutorPublicacao() {
 		return autorPublicacao;
 	}
 
 	public void setAutorPublicacao(AutorDTO autorPublicacao) {
 		this.autorPublicacao = autorPublicacao;
+	}
+	
+	public List<ComentarioDTO> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<ComentarioDTO> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -89,8 +102,4 @@ public class PublicarConteudo implements Serializable{
 		PublicarConteudo other = (PublicarConteudo) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
-
-	
 }
