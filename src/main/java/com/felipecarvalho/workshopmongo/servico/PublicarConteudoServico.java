@@ -1,5 +1,6 @@
 package com.felipecarvalho.workshopmongo.servico;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,11 @@ public class PublicarConteudoServico {
 	public PublicarConteudo listarPublicacaoUsuarioId(String id) {
 		Optional<PublicarConteudo> listaPublicacaoUsuario = publicarConteudoRepositorio.findById(id);
 		return listaPublicacaoUsuario.orElseThrow(()-> new ExcecaoObjetoNaoEncontrado("Usuario não Encontrado"));
+	}
+	
+	public List<PublicarConteudo> findByTituloPublicacaoContainingIgnoringCase(String texto){ 
+		return publicarConteudoRepositorio.findByTituloPublicacaoContainingIgnoringCase(texto);
 	} 
 }
+
+//findByTituloPublicacaoContainingIgnoringCase - encontrar por Titulo Publicacao contendo ignorando letras maisculas e minusculas
