@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,20 +23,20 @@ public class PublicarConteudoRecurso {
 	@Autowired
 	private PublicarConteudoServico publicarConteudoServico;
 
-	@GetMapping(value = "/{id}")
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<PublicarConteudo> listarPublicacaoUsuarioId(@PathVariable String id) {
 		PublicarConteudo listaPublicacaoUsuario = publicarConteudoServico.listarPublicacaoUsuarioId(id);
 		return ResponseEntity.ok().body(listaPublicacaoUsuario);
 	}
 	
-	@GetMapping(value = "/buscarPorTituloPublicacao")
+	@RequestMapping(value = "/buscarPorTituloPublicacao", method=RequestMethod.GET)
 	public ResponseEntity<List<PublicarConteudo>> encontarPorTituloPublicacao(@RequestParam(value = "texto", defaultValue = "") String texto) {
 		texto = URL.decodificarParamentro(texto);
 		List<PublicarConteudo> listaPublicacaoBuscarPorTitulo = publicarConteudoServico.findByTituloPublicacaoContainingIgnoringCase(texto);
 		return ResponseEntity.ok().body(listaPublicacaoBuscarPorTitulo);
 	}
 	
-	@GetMapping(value = "/buscarTudo")
+	@RequestMapping(value = "/buscarTudo", method=RequestMethod.GET)
 	public ResponseEntity<List<PublicarConteudo>> encontrarTodasPublicacaoEntreData(
 			@RequestParam(value = "texto", defaultValue = "") String texto,
 			@RequestParam(value = "dataInicioPesquisa", defaultValue = "") String dataInicioPesquisa,

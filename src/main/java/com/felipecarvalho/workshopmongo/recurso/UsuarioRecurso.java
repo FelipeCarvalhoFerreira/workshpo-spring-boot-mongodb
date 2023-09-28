@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,13 +37,13 @@ public class UsuarioRecurso {
 		return ResponseEntity.ok().body(listarUsuarioDTO);
 	}
 
-	@GetMapping(value = "/{id}")
+	@RequestMapping(value = "/{id}",method=RequestMethod.GET)
 	public ResponseEntity<UsuarioDTO> listarUsuarioId(@PathVariable String id) {
 		Usuario listarUsuarioId = usuarioServico.listarUsuarioId(id);
 		return ResponseEntity.ok().body(new UsuarioDTO(listarUsuarioId));
 	}
 
-	@PostMapping
+	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> inserirUsuario(@RequestBody UsuarioDTO usuarioDTO) {
 		Usuario usuario = usuarioServico.deUsuarioDTOparaUsuario(usuarioDTO);
 		usuario = usuarioServico.inserirUsuario(usuario);
@@ -50,21 +51,21 @@ public class UsuarioRecurso {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@DeleteMapping(value = "/{id}")
+	@RequestMapping(value = "/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deletarUsuario(@PathVariable String id) {
 		usuarioServico.deletarUsuario(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping(value = "/{id}")
+	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> alterarUsuario(@RequestBody UsuarioDTO usuarioDTO, @PathVariable String id) {
 		Usuario usuario = usuarioServico.deUsuarioDTOparaUsuario(usuarioDTO);
-		usuario.getId();
+		usuario.setId(id);
 		usuario = usuarioServico.alterarUsuario(usuario);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping(value = "/{id/publicarConteudo}")
+	@RequestMapping(value = "/{id}/PublicarConteudo", method=RequestMethod.GET)
 	public ResponseEntity<List<PublicarConteudo>>listarPublicacaoUsuario(@PathVariable String id) {
 		Usuario listarUsuarioId = usuarioServico.listarUsuarioId(id);
 		return ResponseEntity.ok().body(listarUsuarioId.getListaPublicacao());
