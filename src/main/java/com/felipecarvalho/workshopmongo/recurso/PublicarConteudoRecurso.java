@@ -1,6 +1,7 @@
 package com.felipecarvalho.workshopmongo.recurso;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,19 @@ public class PublicarConteudoRecurso {
 	@GetMapping(value = "/buscarPorTituloPublicacao")
 	public ResponseEntity<List<PublicarConteudo>> encontarPorTituloPublicacao(@RequestParam(value = "texto", defaultValue = "") String texto) {
 		texto = URL.decodificarParamentro(texto);
-		List<PublicarConteudo> listaPublicarConteudo = publicarConteudoServico.findByTituloPublicacaoContainingIgnoringCase(texto);
-		return ResponseEntity.ok().body(listaPublicarConteudo);
+		List<PublicarConteudo> listaPublicacaoBuscarPorTitulo = publicarConteudoServico.findByTituloPublicacaoContainingIgnoringCase(texto);
+		return ResponseEntity.ok().body(listaPublicacaoBuscarPorTitulo);
+	}
+	
+	@GetMapping(value = "/buscarTudo")
+	public ResponseEntity<List<PublicarConteudo>> encontrarTodasPublicacaoEntreData(
+			@RequestParam(value = "texto", defaultValue = "") String texto,
+			@RequestParam(value = "dataInicioPesquisa", defaultValue = "") String dataInicioPesquisa,
+			@RequestParam(value = "dataFimPesquisa", defaultValue = "") String dataFimPesquisa) {
+		texto = URL.decodificarParamentro(texto);
+		Date dataInicio = URL.converterDataParaString(dataInicioPesquisa, new Date(0L));
+		Date dataFim = URL.converterDataParaString(dataInicioPesquisa, new Date());
+		List<PublicarConteudo> listaPublicacaoBuscarPorTudo = publicarConteudoServico.encontrarTodasPublicacaoEntreData(texto, dataInicio, dataFim);
+		return ResponseEntity.ok().body(listaPublicacaoBuscarPorTudo);
 	}
 }

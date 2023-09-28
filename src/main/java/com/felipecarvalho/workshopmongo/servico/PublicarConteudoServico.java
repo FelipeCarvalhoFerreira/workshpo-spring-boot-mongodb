@@ -1,5 +1,6 @@
 package com.felipecarvalho.workshopmongo.servico;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,16 +21,17 @@ public class PublicarConteudoServico {
 		Optional<PublicarConteudo> listaPublicacaoUsuario = publicarConteudoRepositorio.findById(id);
 		return listaPublicacaoUsuario.orElseThrow(()-> new ExcecaoObjetoNaoEncontrado("Usuario não Encontrado"));
 	}
-	/*
+	
 	public List<PublicarConteudo> findByTituloPublicacaoContainingIgnoringCase(String texto){ 
 		return publicarConteudoRepositorio.findByTituloPublicacaoContainingIgnoringCase(texto);
 		// metodo do spring data
 		//findByTituloPublicacaoContainingIgnoringCase - encontrar por Titulo Publicacao contendo ignorando letras maisculas e minusculas
 	} 
-	*/
 	
-	public List<PublicarConteudo> findByTituloPublicacaoContainingIgnoringCase(String texto){ 
-		return publicarConteudoRepositorio.encontrarPublicacaoPorTitulo(texto);
+	
+	public List<PublicarConteudo> encontrarTodasPublicacaoEntreData(String texto, Date dataInicioPesquisa, Date dataFimPesquisa){ 
+		dataFimPesquisa = new Date(dataFimPesquisa.getTime() + 24 * 60 * 60 * 1000);
+		return publicarConteudoRepositorio.encontrarPublicacaoPorTudoEntreData(texto, dataInicioPesquisa, dataFimPesquisa);
 	}
 }
 
